@@ -1,0 +1,5 @@
+**********BMI Report 2024**********
+Underweight: 1 respondent(s) 12.5%
+Normal Weight: 2 respondent(s) 25.0%
+Overweight: 3 respondent(s) 37.5%
+Obesity: 2 respondent(s) 25.0%

@@ -1,0 +1,48 @@
+Respondent 1
+Weight: 46.7
+Height: 1.55
+BMI: 19.4
+Status: Normal
+
+Respondent 2
+Weight: 90.4
+Height: 1.78
+BMI: 28.5
+Status: Overweight
+
+Respondent 3
+Weight: 77.4
+Height: 1.69
+BMI: 27.1
+Status: Overweight
+
+Respondent 4
+Weight: 75.8
+Height: 1.57
+BMI: 30.8
+Status: Obese
+
+Respondent 5
+Weight: 120.8
+Height: 1.63
+BMI: 45.5
+Status: Obese
+
+Respondent 6
+Weight: 65.3
+Height: 1.52
+BMI: 28.3
+Status: Overweight
+
+Respondent 7
+Weight: 39.8
+Height: 1.54
+BMI: 16.8
+Status: Underweight
+
+Respondent 8
+Weight: 49.6
+Height: 1.53
+BMI: 21.2
+Status: Normal
+
