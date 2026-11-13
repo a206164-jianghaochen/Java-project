@@ -30,11 +30,21 @@ along with a [before/after write-up](network_programming/docs/smtp-pop3-rewrite.
 that documents a real parsing bug in the first version — the kind of bug you
 only find by pointing the client at a server that answers with more than one line.
 
+### [`algorithm_design`](algorithm_design/)
+
+Five sorting algorithms written from scratch — bubble, selection, insertion,
+quicksort, heapsort — plus a benchmark that runs them on the same random input
+and reports median timings. The [README](algorithm_design/README.md) has the
+measurements and what they show: bubble sort taking 116× longer when the input
+grows 10×, insertion sort beating selection sort by 3× despite both being
+O(n²), and quicksort losing to heapsort at 10,000 elements before winning at a
+million.
+
 ## What else is in here
 
 | Folder | Content |
 | --- | --- |
-| `Algorithms`, `algorithm_design`, `dataStructurePractise`, `mergeSort` | Data structures and algorithm work |
+| `Algorithms`, `dataStructurePractise`, `mergeSort` | Data structures and algorithm exercises |
 | `DiceGame.MVC`, `SimpleProject`, `SimpleWebSystem` | OOP and MVC practice |
 | `unitTesting02`–`04`, `unitTesing` | JUnit experiments |
 | `htmlPractice` | HTML / CSS |
