@@ -18,43 +18,54 @@ public class HeapSort {
 		for(int i = 0; i < n; i++) {
 			arr[i] = sc.nextInt();
 		}
-		for(int i = (n - 2)/2; i >= 0; i--) {
-			heapify(arr, n, i);
-		}
-		for(int i = n - 1; i > 0; i--) {
-			swap(arr, 0, i);
-			heapify(arr, i, 0);
-		}
+
+		heapSort(arr);
+
 		System.out.println("The sorted list is: ");
 		for(int i = 0; i < n; i++) {
 			System.out.print(arr[i] + " ");
 		}
 		sc.close();
 	}
-public static void heapify(int[] arr, int n, int i) {
-	
-	while(true) {
-		
-	int l = 2 * i + 1;
-	int r = 2 * i + 2;
-	int currentLargest = i;
-	if(l < n && arr[l] > arr[currentLargest]) {
-		currentLargest = l;
+
+	/**
+	 * Sorts the array in place: build a max-heap, then repeatedly move the root
+	 * to the end and restore the heap. Extracted from main so it can be timed.
+	 */
+	public static void heapSort(int[] arr) {
+		int n = arr.length;
+		for(int i = (n - 2) / 2; i >= 0; i--) {
+			heapify(arr, n, i);
+		}
+		for(int i = n - 1; i > 0; i--) {
+			swap(arr, 0, i);
+			heapify(arr, i, 0);
+		}
 	}
-	if(r < n && arr[r] > arr[currentLargest]) {
-		currentLargest = r;
+
+	public static void heapify(int[] arr, int n, int i) {
+		while(true) {
+			int l = 2 * i + 1;
+			int r = 2 * i + 2;
+			int currentLargest = i;
+			if(l < n && arr[l] > arr[currentLargest]) {
+				currentLargest = l;
+			}
+			if(r < n && arr[r] > arr[currentLargest]) {
+				currentLargest = r;
+			}
+			if(currentLargest != i) {
+				swap(arr, i, currentLargest);
+				i = currentLargest;
+			} else {
+				break;
+			}
+		}
 	}
-	if(currentLargest != i) {
-		swap(arr, i, currentLargest);
-		i = currentLargest;
-	}else {
-		break;
-	}
-}
-}
-public static void swap(int[] arr, int a, int b) {
-	int temp = arr[a];
-	arr[a] = arr[b];
-	arr[b] = temp;
+
+	public static void swap(int[] arr, int a, int b) {
+		int temp = arr[a];
+		arr[a] = arr[b];
+		arr[b] = temp;
 	}
 }

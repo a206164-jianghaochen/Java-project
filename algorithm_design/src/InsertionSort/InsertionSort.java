@@ -10,24 +10,29 @@ public class InsertionSort {
 		int arr[] = new int[n];
 		System.out.println("Please enter " + n + " numbers: ");
 		for(int i = 0; i < n; i++) {
-			arr[i] = sc.nextInt();	
-		}	
+			arr[i] = sc.nextInt();
+		}
 		Insertion_Sort(arr, n);
-		sc.close();	
+		sc.close();
+
+		for(int i = 0; i < n; i++) {
+			System.out.print(arr[i] + " ");
+		}
 	}
+
+	/**
+	 * Sorts the array in place. The printing that used to live in here moved to
+	 * main, so the algorithm can be timed without console I/O dominating.
+	 */
 	public static void Insertion_Sort(int arr[], int n) {
 		for(int i = 1; i < n; i++) {
 			int key = arr[i];
-			int j = i - 1;	
+			int j = i - 1;
 			while(j >= 0 && arr[j] > key) {
 				arr[j + 1] = arr[j];
 				j--;
 			}
-			arr[j+1] = key;	
-		}	
-		for(int i = 0; i < n; i++) {
-			System.out.print(arr[i] + " ");		
-		}		
-	}	
+			arr[j+1] = key;
+		}
+	}
 }
-
