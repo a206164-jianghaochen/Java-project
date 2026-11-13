@@ -1,0 +1,117 @@
+package smtpAndPop3;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class POP3Client {
+    protected int port = 110;
+    protected String hostname = "localhost";
+    protected String username = "";
+    protected String password = "";
+    protected Socket socket;
+    protected BufferedReader br;
+    protected PrintWriter pw;
+
+    public static void main(String[] args) {
+        POP3Client client = new POP3Client();
+    }
+    public POP3Client() {
+        try {
+            getInput();
+            fetchMail();
+        } catch (Exception e) {
+            System.out.println("Error receiving message - " + e);
+        }
+    }
+
+    protected void getInput() throws Exception {
+        BufferedReader sysBr = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.print("Please enter POP3 server hostname: ");
+        String data = sysBr.readLine();
+        if (data != null && !data.trim().isEmpty()) {
+            hostname = data;
+        }
+        System.out.print("Please enter Username: ");
+        username = sysBr.readLine();
+
+        System.out.print("Please enter Password: ");
+        password = sysBr.readLine();
+    }
+
+    protected String readResponse() throws Exception {
+        String line = br.readLine();
+        System.out.println("< " + line);
+        return line;
+    }
+
+    protected void writeMsg(String msg) throws Exception {
+        pw.println(msg);
+        pw.flush();
+        System.out.println("> " + msg);
+    }
+
+    protected void sendQuit() throws Exception {
+        System.out.println("Sending QUIT");
+        writeMsg("QUIT");
+        readResponse();
+        System.out.println("Closing Connection");
+        closeConnection();
+    }
+
+    protected void closeConnection() throws Exception {
+        pw.flush();
+        pw.close();
+        br.close();
+        socket.close();
+    }
+
+    protected void fetchMail() throws Exception {
+        System.out.println("Opening Socket to POP3 server...");
+        socket = new Socket(this.hostname, this.port);
+
+        br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+        String res = readResponse();
+        if (!res.startsWith("+OK")) {
+            socket.close();
+            throw new Exception("Invalid POP3 Server");
+        }
+
+        writeMsg("USER " + this.username);
+        res = readResponse();
+        if (!res.startsWith("+OK")) {
+            sendQuit();
+            throw new Exception("Invalid Username");
+        }
+        writeMsg("PASS " + this.password);
+        res = readResponse();
+        if (!res.startsWith("+OK")) {
+            sendQuit();
+            throw new Exception("Invalid Password");
+        }
+
+        writeMsg("STAT");
+        res = readResponse();
+        System.out.println("Fetching first message...");
+        writeMsg("RETR 1");
+        res = readResponse();
+
+        if (res.startsWith("+OK")) {
+            System.out.println("--- EMAIL CONTENT START ---");
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.equals(".")) {
+                    break;
+                }
+                System.out.println(line);
+            }
+            System.out.println("--- EMAIL CONTENT END ---");
+        }
+        sendQuit();
+    }
+}
